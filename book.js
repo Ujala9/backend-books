@@ -40,7 +40,7 @@ async function readAllBooks(){
      const allBooks = await Book.find()
      return allBooks
     }catch (error){
-        console.log(error)
+       throw error
     }
 }
 

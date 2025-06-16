@@ -9,6 +9,10 @@ initializeDb();
 
 const Book = require("./schema/book.model")
 
+const cors = require('cors');
+app.use(cors());
+
+
 async function CreateBook(newBook){
     try{
       const book = new Book(newBook)

@@ -170,6 +170,30 @@ app.post("/books/:bookId", async (req,res) => {
     }
 })
 
+async function updateBookByTitle(bookTitle,dataToUpdate){
+    try{
+    const updatedBook = await Book.findOneAndUpdate({title: bookTitle}, dataToUpdate,{
+        new: true
+    })
+    return updatedBook
+    }catch (error) {
+        throw error;
+    }
+}
+
+app.post("/book/:bookTitle", async (req,res) => {
+    try{
+    const updatedbook = await updateBookByTitle(req.params.bookTitle, req.body)
+     if(updatedbook){
+        res.status(200).json({message: "Books Updated Successfully"})
+     } else {
+        res.status(404).json({error: "Book does not Exist"})
+     }
+    }catch (error){
+       res.status(500).json({error: "Failed to Update books"})
+    }
+})
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

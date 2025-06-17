@@ -48,7 +48,7 @@ async function readAllBooks(){
 app.get("/books", async (req,res) => {
     try{
      const books = await readAllBooks()
-     if(books.length != 0){
+     if(books && books.length > 0){
         res.json(books)
      } else {
         res.status(404).json({error: "No Book Found"})

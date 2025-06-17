@@ -1,1 +1,1 @@
-{ "version": 2, "builds": [{ "src": "book.js", "use": "@vercel/node" }], "rewrites": [{ "source": "/(.*)", "destination": "book.js" }] }
+{ "version": 2, "builds": [{ "src": "api/book.js", "use": "@vercel/node" }], "rewrites": [{ "source": "/(.*)", "destination": "api/book.js" }] }

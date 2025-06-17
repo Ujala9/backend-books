@@ -2,8 +2,6 @@ const express = require("express")
 const cors = require('cors');
 const app = express()
 
-app.use(express.json())
-
 const { initializeDb } = require("./db/db.connect")
 
 initializeDb();
@@ -70,7 +68,7 @@ async function readBookByTitle(bookTitle){
 app.get("/books/:title", async (req,res) => {
     try{
     const books = await readBookByTitle(req.params.title)
-     if(books.length != 0){
+     if(books){
         res.json(books)
      } else {
         res.status(404).json({error: "No Book Found"})
@@ -92,7 +90,7 @@ async function readBookByAuthor(authorName){
 app.get("/books/author/:authorName", async (req,res) => {
     try{
     const books = await readBookByAuthor(req.params.authorName)
-     if(books.length != 0){
+     if(books){
         res.json(books)
      } else {
         res.status(404).json({error: "No Book Found"})
@@ -116,7 +114,7 @@ async function readBookByGenre(bookGenre){
 app.get("/books/genre/:genreName", async (req,res) => {
     try{
     const books = await readBookByGenre(req.params.genreName)
-     if(books.length != 0){
+     if(books){
         res.json(books)
      } else {
         res.status(404).json({error: "No Book Found"})
@@ -130,7 +128,7 @@ app.get("/books/genre/:genreName", async (req,res) => {
 
 async function readBookByYear(yearName){
     try{
-      const book = Book.find({publishedYear: yearName})
+      const book = await Book.find({publishedYear: yearName})
       return book
     }catch (error){
         throw error
@@ -140,7 +138,7 @@ async function readBookByYear(yearName){
 app.get("/books/year/:bookYear", async (req,res) => {
     try{
     const books = await readBookByYear(req.params.bookYear)
-     if(books.length != 0){
+     if(books){
         res.json(books)
      } else {
         res.status(404).json({error: "No Book Found"})

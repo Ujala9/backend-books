@@ -199,6 +199,31 @@ app.post("/book/:bookTitle", async (req,res) => {
 })
 
 
+
+async function deleteBookById(bookId){
+  try {
+    const deletedBook = await Book.findByIdAndDelete(bookId);
+    return deletedBook
+  } catch (error) {
+     console.log(error)
+  }
+};
+
+app.delete("/books/:bookId", async (req, res) => {
+ 
+  try {
+    const deletedBook = await deleteBookById(req.params.bookId);
+    if (deletedBook) {
+       res.status(200).json({ message: "Book deleted successfully", deletedBook });
+    }
+  } catch (error) {
+    console.error("Error deleting book:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
